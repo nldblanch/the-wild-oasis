@@ -27,11 +27,7 @@ const TableHeader = styled.header`
   padding: 1.6rem 2.4rem;
 `;
 
-interface CabinTableProps {
-
-}
-
-function CabinTable({ }: CabinTableProps) {
+function CabinTable() {
   const { cabins, isLoading } = useCabins()
 
   if (isLoading) return <Spinner />

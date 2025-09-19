@@ -3,10 +3,6 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import styled from "styled-components";
 
-interface AppLayoutProps {
-
-}
-
 const Main = styled.main`
     background-color: var(--color-grey-50);
     padding: 4rem 4.8rem 6.4rem;
@@ -28,7 +24,7 @@ const Container = styled.div`
     gap: 3.2rem;
 `
 
-function AppLayout({ }: AppLayoutProps) {
+function AppLayout() {
     return (
         <StyledAppLayout>
             <Header />

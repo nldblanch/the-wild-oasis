@@ -47,11 +47,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-interface MainNavProps {
-
-}
-
-function MainNav({ }: MainNavProps) {
+function MainNav() {
   return (
     <nav>
       <NavList>

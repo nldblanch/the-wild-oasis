@@ -56,6 +56,7 @@ function CabinRow({ cabin }: CabinRowProps) {
   const { id, name, max_capacity, discount, image, regular_price } = cabin
   const { isDeleting, deleteCabin } = useDeleteCabin()
   const { createCabin, isCreating } = useCreateCabin()
+  const isWorking = isDeleting || isCreating
   function handleDuplicate() {
     createCabin({
       name: `Copy of ${name}`,
@@ -72,15 +73,28 @@ function CabinRow({ cabin }: CabinRowProps) {
         <Price>{formatCurrency(regular_price ?? 0)}</Price>
         {discount ? <Discount>{formatCurrency(discount ?? 0)}</Discount> : <span>&mdash;</span>}
         <div>
-          <button onClick={handleDuplicate}><HiSquare2Stack /></button>
-          <button onClick={() => setShowForm(show => !show)}>
+
+          <button
+            onClick={handleDuplicate}
+            disabled={isWorking}
+          >
+            <HiSquare2Stack />
+          </button>
+
+          <button
+            onClick={() => setShowForm(show => !show)}
+            disabled={isWorking}
+          >
             <HiPencil />
           </button>
+
           <button
             onClick={() => deleteCabin(id)}
-            disabled={isDeleting}>
+            disabled={isWorking}
+          >
             <HiTrash />
           </button>
+
         </div>
       </TableRow>
       {showForm && <CabinForm cabinToEdit={cabin} />}

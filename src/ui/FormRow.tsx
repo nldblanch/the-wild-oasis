@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Input from "./Input";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -38,37 +37,37 @@ const Error = styled.span`
 `;
 
 type FormRowProps = {
-    variant?: 'default'
-    label: string
-    children: React.ReactElement<{ id: string }>
-    error: string | undefined
+  variant?: 'default'
+  label: string
+  children: React.ReactElement<{ id: string }>
+  error: string | undefined
 } | {
-    variant: 'buttons'
-    label?: string
-    children: React.ReactNode
-    error?: string
+  variant: 'buttons'
+  label?: string
+  children: React.ReactNode
+  error?: string
 }
 
 function FormRow({ label, children, error, variant }: FormRowProps) {
 
-    if (variant === 'buttons') {
-        return (
-            <StyledFormRow>
-                {children}
-            </StyledFormRow>
-        );
-    }
+  if (variant === 'buttons') {
     return (
-        <StyledFormRow>
-            {label && <Label htmlFor={children.props.id}>{label}</Label>}
-            {children}
-            {error && <Error>{error}</Error>}
-        </StyledFormRow>
+      <StyledFormRow>
+        {children}
+      </StyledFormRow>
     );
+  }
+  return (
+    <StyledFormRow>
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {children}
+      {error && <Error>{error}</Error>}
+    </StyledFormRow>
+  );
 }
 
 FormRow.defaultProps = {
-    variant: 'default'
+  variant: 'default'
 }
 
 export default FormRow;
