@@ -21,3 +21,10 @@ export interface CreateCabinProps {
 export interface UpdateCabinProps extends CreateCabinProps {
     id: number;
 }
+
+export interface Settings {
+    min_booking_length: number;
+    max_booking_length: number;
+    max_guests_per_booking: number;
+    breakfast_price: number;
+}
