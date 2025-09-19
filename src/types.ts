@@ -17,3 +17,13 @@ export interface CreateCabinProps {
     description: string;
     image: File;
 }
+
+export interface UpdateCabinProps {
+    id: number;
+    name: string;
+    max_capacity: number;
+    regular_price: number;
+    discount: number;
+    description: string;
+    image: File | string;
+}
