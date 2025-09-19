@@ -15,17 +15,14 @@ export async function getCabins(): Promise<Cabin[]> {
 }
 
 export async function createCabin(cabin: CreateCabinProps): Promise<Cabin> {
-    const imageName = `${Math.random()}-${cabin.image.name}`.replace(/\//g, '')
-    const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+    let imagePath: string
 
-    const { error: storageError } = await supabase
-        .storage
-        .from('cabin-images')
-        .upload(imageName, cabin.image)
-
-    if (storageError) {
-        throw new Error("Cabin image could not be uploaded");
+    if (cabin.image instanceof File) {
+        imagePath = await uploadImage(cabin.image)
+    } else {
+        imagePath = cabin.image
     }
+
 
     const { data, error } = await supabase
         .from('cabins')
@@ -34,7 +31,12 @@ export async function createCabin(cabin: CreateCabinProps): Promise<Cabin> {
         .single()
 
     if (error) {
-        await supabase.storage.from('cabin-images').remove([imageName])
+        if (cabin.image instanceof File) {
+            const imageName = getImageNameFromPath(imagePath)
+            if (imageName) {
+                await supabase.storage.from('cabin-images').remove([imageName])
+            }
+        }
         throw new Error("Cabin could not be created");
     }
 
@@ -46,17 +48,7 @@ export async function updateCabin({ id, ...cabin }: UpdateCabinProps): Promise<C
 
     if (cabin.image instanceof File) {
         await deleteCabinImage(id)
-        const imageName = `${Math.random()}-${cabin.image.name}`.replace(/\//g, '')
-        imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
-
-        const { error: storageError } = await supabase
-            .storage
-            .from('cabin-images')
-            .upload(imageName, cabin.image)
-
-        if (storageError) {
-            throw new Error("Cabin image could not be uploaded");
-        }
+        imagePath = await uploadImage(cabin.image)
     }
 
     const { data, error } = await supabase
@@ -85,9 +77,17 @@ export async function deleteCabin(id: number): Promise<void> {
         console.error(error);
         throw new Error("Cabin could not be deleted");
     }
+
+}
+
+async function getImageReferenceCount(imagePath: string): Promise<number> {
+    const { data: cabinsUsingImage } = await supabase.from('cabins').select('id').eq('image', imagePath)
+
+    return cabinsUsingImage?.length || 0
 }
 
 async function deleteCabinImage(id: number): Promise<void> {
+
     const { data: cabin, error: fetchError } = await supabase
         .from('cabins')
         .select('image')
@@ -100,12 +100,40 @@ async function deleteCabinImage(id: number): Promise<void> {
     }
 
     if (cabin.image) {
-        const imageName = cabin.image.split('/').pop();
+
+        await safeDeleteImage(cabin.image)
+
+    }
+}
+
+async function safeDeleteImage(imagePath: string): Promise<void> {
+    const referenceCount = await getImageReferenceCount(imagePath)
+
+    if (referenceCount <= 1) {
+        const imageName = getImageNameFromPath(imagePath)
         if (imageName) {
-            await supabase
-                .storage
-                .from('cabin-images')
-                .remove([imageName])
+            await supabase.storage.from('cabin-images').remove([imageName])
         }
     }
+}
+
+async function uploadImage(image: File) {
+
+    const imageName = `${Math.random()}-${image.name}`.replace(/\//g, '')
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+
+    const { error: storageError } = await supabase
+        .storage
+        .from('cabin-images')
+        .upload(imageName, image)
+
+    if (storageError) {
+        throw new Error("Cabin image could not be uploaded");
+    }
+    return imagePath
+}
+
+function getImageNameFromPath(path: string) {
+    const imageName = path.split('/').pop();
+    return imageName
 }

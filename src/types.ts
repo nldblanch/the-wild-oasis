@@ -1,12 +1,12 @@
 export interface Cabin {
     id: number;
     created_at: string;
-    name: string | null;
-    max_capacity: number | null;
-    regular_price: number | null;
-    discount: number | null;
-    description: string | null;
-    image: string | null;
+    name: string;
+    max_capacity: number;
+    regular_price: number;
+    discount: number;
+    description: string;
+    image: string;
 }
 
 export interface CreateCabinProps {
@@ -15,15 +15,9 @@ export interface CreateCabinProps {
     regular_price: number;
     discount: number;
     description: string;
-    image: File;
+    image: File | string;
 }
 
-export interface UpdateCabinProps {
+export interface UpdateCabinProps extends CreateCabinProps {
     id: number;
-    name: string;
-    max_capacity: number;
-    regular_price: number;
-    discount: number;
-    description: string;
-    image: File | string;
 }
