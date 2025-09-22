@@ -23,9 +23,10 @@ interface FormFields {
 
 interface CabinFormProps {
   cabinToEdit?: Cabin | null
+  onCloseModal?: () => void
 }
 
-function CabinForm({ cabinToEdit = null }: CabinFormProps) {
+function CabinForm({ cabinToEdit = null, onCloseModal }: CabinFormProps) {
   const { id: editId, ...editValues } = cabinToEdit || {}
   const isEditSession = Boolean(cabinToEdit?.id)
 
@@ -43,12 +44,18 @@ function CabinForm({ cabinToEdit = null }: CabinFormProps) {
     if (isEditSession) {
       if (!editId) throw new Error("Cannot update without id")
       updateCabin({ ...data, image, id: editId }, {
-        onSuccess: () => reset()
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        }
       })
     } else {
       if (typeof image === 'string') throw new Error("Image must be file upload")
       createCabin({ ...data, image }, {
-        onSuccess: () => reset()
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        }
       })
     }
   }
@@ -56,7 +63,7 @@ function CabinForm({ cabinToEdit = null }: CabinFormProps) {
 
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -136,7 +143,7 @@ function CabinForm({ cabinToEdit = null }: CabinFormProps) {
       </FormRow>
 
       <FormRow variant="buttons" >
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isWorking}>{isEditSession ? 'Edit cabin' : 'Create new cabin'}</Button>
