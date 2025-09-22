@@ -66,9 +66,9 @@ interface ModalProps {
 }
 
 function Modal({ children }: ModalProps) {
-  const [openName, setOpenName] = useState<string>('');
+  const [openName, setOpenName] = useState<string>("");
 
-  const close = () => setOpenName('');
+  const close = () => setOpenName("");
   const open = setOpenName;
 
   return (
@@ -98,7 +98,7 @@ function Window({ children, name }: WindowProps) {
   if (!context) throw new Error("Window must be used within a Modal");
   const { openName, close } = context;
 
-  const ref = useOutsideClick<HTMLDivElement>(close, true)
+  const ref = useOutsideClick<HTMLDivElement>(close, true);
 
   if (name !== openName) return null;
 

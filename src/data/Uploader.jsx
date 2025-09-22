@@ -90,7 +90,7 @@ async function createBookings() {
       totalPrice,
       guestId: allGuestIds.at(booking.guestId - 1),
       cabinId: allCabinIds.at(booking.cabinId - 1),
-      status,
+      status
     };
   });
 
@@ -135,7 +135,7 @@ function Uploader() {
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        gap: "8px"
       }}
     >
       <h3>SAMPLE DATA</h3>

@@ -11,7 +11,9 @@ export async function getSettings() {
   return data;
 }
 
-export async function updateSetting<K extends keyof Settings>(newSetting: Pick<Settings, K>) {
+export async function updateSetting<K extends keyof Settings>(
+  newSetting: Pick<Settings, K>
+) {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)

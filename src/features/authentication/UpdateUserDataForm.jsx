@@ -13,8 +13,8 @@ function UpdateUserDataForm() {
   const {
     user: {
       email,
-      user_metadata: { fullName: currentFullName },
-    },
+      user_metadata: { fullName: currentFullName }
+    }
   } = useUser();
 
   const [fullName, setFullName] = useState(currentFullName);

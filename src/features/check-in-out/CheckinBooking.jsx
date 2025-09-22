@@ -28,7 +28,7 @@ function CheckinBooking() {
     totalPrice,
     numGuests,
     hasBreakfast,
-    numNights,
+    numNights
   } = booking;
 
   function handleCheckin() {}

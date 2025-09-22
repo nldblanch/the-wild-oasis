@@ -4,7 +4,6 @@ import Row from "../ui/Row";
 import AddCabin from "../features/cabins/AddCabin";
 
 function Cabins() {
-
   return (
     <>
       <Row type="horizontal">

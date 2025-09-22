@@ -17,7 +17,7 @@ const sizes = {
     font-size: 1.6rem;
     padding: 1.2rem 2.4rem;
     font-weight: 500;
-  `,
+  `
 };
 
 const variations = {
@@ -45,27 +45,26 @@ const variations = {
     &:hover {
       background-color: var(--color-red-800);
     }
-  `,
+  `
 };
 
 interface ButtonProps {
-  variation?: 'primary' | 'secondary' | 'danger';
-  size?: 'small' | 'medium' | 'large';
+  variation?: "primary" | "secondary" | "danger";
+  size?: "small" | "medium" | "large";
 }
 
 const Button = styled.button<ButtonProps>`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
-  ${props => sizes[props.size!]}
-  
-  ${props => variations[props.variation!]}
+  ${(props) => sizes[props.size!]}
 
+  ${(props) => variations[props.variation!]}
 `;
 
 Button.defaultProps = {
-  variation: 'primary',
-  size: 'medium'
-}
+  variation: "primary",
+  size: "medium"
+};
 
 export default Button;

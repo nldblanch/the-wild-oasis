@@ -36,26 +36,23 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-type FormRowProps = {
-  variant?: 'default'
-  label: string
-  children: React.ReactElement<{ id: string }>
-  error: string | undefined
-} | {
-  variant: 'buttons'
-  label?: string
-  children: React.ReactNode
-  error?: string
-}
+type FormRowProps =
+  | {
+      variant?: "default";
+      label: string;
+      children: React.ReactElement<{ id: string }>;
+      error: string | undefined;
+    }
+  | {
+      variant: "buttons";
+      label?: string;
+      children: React.ReactNode;
+      error?: string;
+    };
 
 function FormRow({ label, children, error, variant }: FormRowProps) {
-
-  if (variant === 'buttons') {
-    return (
-      <StyledFormRow>
-        {children}
-      </StyledFormRow>
-    );
+  if (variant === "buttons") {
+    return <StyledFormRow>{children}</StyledFormRow>;
   }
   return (
     <StyledFormRow>
@@ -67,7 +64,7 @@ function FormRow({ label, children, error, variant }: FormRowProps) {
 }
 
 FormRow.defaultProps = {
-  variant: 'default'
-}
+  variant: "default"
+};
 
 export default FormRow;

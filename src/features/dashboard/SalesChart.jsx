@@ -40,7 +40,7 @@ const fakeData = [
   { label: "Feb 03", totalSales: 1400, extrasSales: 450 },
   { label: "Feb 04", totalSales: 1500, extrasSales: 500 },
   { label: "Feb 05", totalSales: 1400, extrasSales: 600 },
-  { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
+  { label: "Feb 06", totalSales: 1450, extrasSales: 400 }
 ];
 
 const isDarkMode = true;
@@ -49,11 +49,11 @@ const colors = isDarkMode
       totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
       extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
       text: "#e5e7eb",
-      background: "#18212f",
+      background: "#18212f"
     }
   : {
       totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
       extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
       text: "#374151",
-      background: "#fff",
+      background: "#fff"
     };

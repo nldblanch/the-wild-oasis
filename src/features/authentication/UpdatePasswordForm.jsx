@@ -31,8 +31,8 @@ function UpdatePasswordForm() {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
-            },
+              message: "Password needs a minimum of 8 characters"
+            }
           })}
         />
       </FormRow>
@@ -49,7 +49,7 @@ function UpdatePasswordForm() {
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
-              getValues().password === value || "Passwords need to match",
+              getValues().password === value || "Passwords need to match"
           })}
         />
       </FormRow>
