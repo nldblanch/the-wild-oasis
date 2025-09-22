@@ -28,3 +28,10 @@ export interface Settings {
   max_guests_per_booking: number;
   breakfast_price: number;
 }
+
+export type SearchOptions = "discount";
+
+export interface FilterOption {
+  value: "all" | "no-discount" | "with-discount";
+  label: string;
+}
