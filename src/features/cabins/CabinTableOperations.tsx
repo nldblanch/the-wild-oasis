@@ -1,5 +1,6 @@
 import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
+import SortBy from "../../ui/SortBy";
 
 interface CabinTableOperationsProps {}
 
@@ -12,6 +13,26 @@ function CabinTableOperations({}: CabinTableOperationsProps) {
           { value: "all", label: "All" },
           { value: "no-discount", label: "No discount" },
           { value: "with-discount", label: "With discount" }
+        ]}
+      />
+
+      <SortBy
+        options={[
+          { value: "name-asc", label: "Sort by name (A-Z)" },
+          { value: "name-desc", label: "Sort by name (Z-A)" },
+          { value: "regular_price-asc", label: "Sort by price (lowest first)" },
+          {
+            value: "regular_price-desc",
+            label: "Sort by price (highest first)"
+          },
+          {
+            value: "max_capacity-asc",
+            label: "Sort by capacity (lowest first)"
+          },
+          {
+            value: "max_capacity-desc",
+            label: "Sort by capacity (highest first)"
+          }
         ]}
       />
     </TableOperations>

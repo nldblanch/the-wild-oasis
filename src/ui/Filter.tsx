@@ -46,6 +46,7 @@ interface FilterProps {
 function Filter({ filterField, options }: FilterProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options[0].value;
+
   function handleClick(value: FilterOption["value"]) {
     searchParams.set(filterField, value);
     setSearchParams(searchParams);
@@ -58,6 +59,7 @@ function Filter({ filterField, options }: FilterProps) {
           key={value}
           onClick={() => handleClick(value)}
           active={value === currentFilter}
+          disabled={value === currentFilter}
         >
           {label}
         </FilterButton>

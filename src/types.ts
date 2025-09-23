@@ -35,3 +35,11 @@ export interface FilterOption {
   value: "all" | "no-discount" | "with-discount";
   label: string;
 }
+
+export type CabinSortableKeys = Exclude<keyof Cabin, "id" | "image">;
+export type SortValues = `${CabinSortableKeys}-${"asc" | "desc"}`;
+
+export interface SortOption {
+  value: SortValues;
+  label: string;
+}
