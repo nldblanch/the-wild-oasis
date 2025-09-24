@@ -6,17 +6,18 @@ import type {
   Cabin,
   CabinSortableKeys,
   FilterOption,
-  SortValues
+  CabinSortValues
 } from "../../types";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 function CabinTable() {
   const { cabins, isLoading } = useCabins();
   const [searchParams] = useSearchParams();
 
   if (isLoading || !cabins) return <Spinner />;
-
+  if (!cabins.length) return <Empty resource={"cabins"} />;
   const filterValue = (searchParams.get("discount") ||
     "all") as FilterOption["value"];
 
@@ -27,7 +28,7 @@ function CabinTable() {
     return true;
   });
 
-  const sortBy = (searchParams.get("sortBy") || "name-asc") as SortValues;
+  const sortBy = (searchParams.get("sortBy") || "name-asc") as CabinSortValues;
   const [field, direction] = sortBy.split("-");
   const sortedCabins = [...filteredCabins].sort((a, b) => {
     const sortField = field as CabinSortableKeys;

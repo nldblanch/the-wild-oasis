@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const Tag = styled.span`
+export type TagColor = "blue" | "green" | "silver" | (string & {});
+
+interface TagProps {
+  type: TagColor;
+}
+
+const Tag = styled.span<TagProps>`
   width: fit-content;
   text-transform: uppercase;
   font-size: 1.1rem;
