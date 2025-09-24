@@ -13,14 +13,14 @@ const StyledFilter = styled.div`
 `;
 
 interface FilterButtonType {
-  active: boolean;
+  $active: boolean;
 }
 const FilterButton = styled.button<FilterButtonType>`
   background-color: var(--color-grey-0);
   border: none;
 
   ${(props) =>
-    props.active &&
+    props.$active &&
     css`
       background-color: var(--color-brand-600);
       color: var(--color-brand-50);
@@ -49,6 +49,7 @@ function Filter({ filterField, options }: FilterProps) {
 
   function handleClick(value: FilterOption["value"]) {
     searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
@@ -58,7 +59,7 @@ function Filter({ filterField, options }: FilterProps) {
         <FilterButton
           key={value}
           onClick={() => handleClick(value)}
-          active={value === currentFilter}
+          $active={value === currentFilter}
           disabled={value === currentFilter}
         >
           {label}

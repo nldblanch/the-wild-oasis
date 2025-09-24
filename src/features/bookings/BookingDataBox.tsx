@@ -70,7 +70,7 @@ const Guest = styled.div`
 `;
 
 interface PriceType {
-  has_paid: boolean;
+  $has_paid: boolean;
 }
 const Price = styled.div<PriceType>`
   display: flex;
@@ -81,9 +81,9 @@ const Price = styled.div<PriceType>`
   margin-top: 2.4rem;
 
   background-color: ${(props) =>
-    props.has_paid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+    props.$has_paid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
   color: ${(props) =>
-    props.has_paid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+    props.$has_paid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
 
   & p:last-child {
     text-transform: uppercase;
@@ -174,7 +174,7 @@ function BookingDataBox({ booking }: BookingDataBoxProps) {
           {has_breakfast ? "Yes" : "No"}
         </DataItem>
 
-        <Price has_paid={has_paid ?? false}>
+        <Price $has_paid={has_paid ?? false}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(total_price ?? 0)}
 

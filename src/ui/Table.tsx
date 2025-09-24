@@ -11,12 +11,12 @@ const StyledTable = styled.div`
 `;
 
 interface CommonRowProps {
-  columns: string;
+  $columns: string;
 }
 
 const CommonRow = styled.div<CommonRowProps>`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -92,7 +92,7 @@ function Header({ children }: HeaderProps) {
   const { columns } = context;
 
   return (
-    <StyledHeader role="row" columns={columns} as="thead">
+    <StyledHeader role="row" $columns={columns}>
       {children}
     </StyledHeader>
   );
@@ -105,7 +105,7 @@ function Row({ children }: RowProps) {
   const context = useContext(TableContext);
   if (!context) throw new Error("Open must be used within a Table");
   const { columns } = context;
-  return <StyledRow columns={columns}>{children}</StyledRow>;
+  return <StyledRow $columns={columns}>{children}</StyledRow>;
 }
 
 interface BodyProps<T> {

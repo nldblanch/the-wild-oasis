@@ -144,7 +144,10 @@ export async function getStaysTodayActivity(): Promise<any> {
   return data;
 }
 
-export async function updateBooking(id: number, obj: UpdateBookingProps) {
+export async function updateBooking(
+  id: number,
+  obj: Partial<UpdateBookingProps>
+): Promise<BookingDetail> {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -156,7 +159,7 @@ export async function updateBooking(id: number, obj: UpdateBookingProps) {
     console.error(error);
     throw new Error("Booking could not be updated");
   }
-  return data;
+  return data as BookingDetail;
 }
 
 export async function deleteBooking(id: number): Promise<null> {

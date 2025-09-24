@@ -46,18 +46,19 @@ async function createBookings() {
     .from("guests")
     .select("id")
     .order("id");
-  const allGuestIds = guestsIds.map((cabin) => cabin.id);
+  const allGuestIds = guestsIds?.map((cabin) => cabin.id);
   const { data: cabinsIds } = await supabase
     .from("cabins")
     .select("id")
     .order("id");
-  const allCabinIds = cabinsIds.map((cabin) => cabin.id);
+  const allCabinIds = cabinsIds?.map((cabin) => cabin.id);
 
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
-    const cabin = cabins.at(booking.cabinId - 1);
+    const cabin = cabins.at(booking.cabin_id - 1);
     const num_of_nights = subtractDates(booking.end_date, booking.start_date);
-    const cabin_price = num_of_nights * (cabin.regular_price - cabin.discount);
+    const cabin_price =
+      num_of_nights * (cabin!.regular_price - cabin!.discount);
     const extras_price = booking.has_breakfast
       ? num_of_nights * 15 * booking.num_of_guests
       : 0; // hardcoded breakfast price
@@ -88,8 +89,8 @@ async function createBookings() {
       cabin_price,
       extras_price,
       total_price,
-      guest_id: allGuestIds.at(booking.guest_id - 1),
-      cabin_id: allCabinIds.at(booking.cabin_id - 1),
+      guest_id: allGuestIds?.at(booking.guest_id - 1),
+      cabin_id: allCabinIds?.at(booking.cabin_id - 1),
       status
     };
   });
