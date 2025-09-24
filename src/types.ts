@@ -163,3 +163,9 @@ export interface SortOption {
 }
 
 export type SearchOptions = "discount" | "status";
+
+// AUTH
+export interface Credentials {
+  email: string;
+  password: string;
+}
