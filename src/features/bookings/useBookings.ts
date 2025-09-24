@@ -5,7 +5,6 @@ import {
   BookingSortableKeys,
   BookingSortableValues,
   BookingSorts,
-  BookingSummary,
   StatusFilterValues
 } from "../../types";
 import { PAGE_SIZE } from "../../utils/constants";

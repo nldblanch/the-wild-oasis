@@ -90,10 +90,10 @@ function Pagination({ count }: PaginationProps) {
   const lastResult = Math.min(currentPage * PAGE_SIZE, count);
   return (
     <StyledPagination>
-      <p>
+      <P>
         Showing <span>{firstResult}</span> to <span>{lastResult}</span> of{" "}
         <span>{count}</span> results
-      </p>
+      </P>
       <Buttons>
         <PaginationButton onClick={previousPage} disabled={currentPage <= 1}>
           <HiChevronLeft /> <span>Previous</span>
