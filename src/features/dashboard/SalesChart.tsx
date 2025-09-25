@@ -12,7 +12,13 @@ import {
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
 import { BookingsAfterDateType } from "../../types";
-import { eachDayOfInterval, formatDate, isSameDay, subDays } from "date-fns";
+import {
+  eachDayOfInterval,
+  format,
+  formatDate,
+  isSameDay,
+  subDays
+} from "date-fns";
 import { useState } from "react";
 import Button from "../../ui/Button";
 
@@ -89,7 +95,10 @@ function SalesChart({ bookings, numDays }: SalesChartProps) {
   return (
     <StyledSalesChart>
       <StyledHeaderContainer>
-        <Heading as="h2">Sales</Heading>
+        <Heading as="h2">
+          Sales from {format(allDates.at(0) ?? 0, "MMM dd yyyy")} &mdash;{" "}
+          {format(allDates.at(-1) ?? 0, "MMM dd yyyy")}
+        </Heading>
         <Button onClick={() => setShowCombined((show) => !show)}>
           {showCombined ? "Hide" : "Show"} combined sales
         </Button>
