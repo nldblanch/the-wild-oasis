@@ -1,10 +1,17 @@
 import styled from "styled-components";
+import { BREAKPOINTS } from "../utils/constants";
 
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
   gap: 2.4rem;
+  @media screen and (max-width: ${BREAKPOINTS.laptop}) {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 50rem;
+    margin: 0 auto;
+  }
 
   padding: 1.2rem 0;
 

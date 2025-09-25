@@ -1,11 +1,15 @@
 import { isValidElement } from "react";
 import styled from "styled-components";
+import { BREAKPOINTS } from "../utils/constants";
 
 const StyledFormRow = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   padding: 1.2rem 0;
+  @media screen and (max-width: ${BREAKPOINTS.laptop}) {
+    padding: 1rem 5rem;
+  }
 `;
 
 const Label = styled.label`

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { BREAKPOINTS } from "../utils/constants";
 
 const Heading = styled.h1`
   ${(props) =>
@@ -31,6 +32,9 @@ const Heading = styled.h1`
     `}
     
   line-height: 1.4;
+  @media screen and (max-width: ${BREAKPOINTS.desktop}) {
+    text-align: center;
+  }
 `;
 
 export default Heading;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 import Uploader from "../data/Uploader";
+import { BREAKPOINTS } from "../utils/constants";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -12,6 +13,9 @@ const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
+  @media screen and (max-width: ${BREAKPOINTS.laptop}) {
+    display: none !important;
+  }
 `;
 
 function Sidebar() {
