@@ -1,9 +1,12 @@
 import {
   BookingDetail,
   BookingFilterAny,
+  BookingsAfterDateType,
   BookingSortableKeys,
   BookingSortableValues,
   BookingSummary,
+  StaysAfterDateType,
+  StaysTodayActivityType,
   UpdateBookingProps
 } from "../types";
 import { PAGE_SIZE } from "../utils/constants";
@@ -90,11 +93,12 @@ export async function getBooking(id: number): Promise<BookingDetail> {
   return data as BookingDetail;
 }
 
-// Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
-export async function getBookingsAfterDate(date: string): Promise<any> {
+export async function getBookingsAfterDate(
+  date: string
+): Promise<BookingsAfterDateType[]> {
   const { data, error } = await supabase
     .from("bookings")
-    .select("created_at, totalPrice, extrasPrice")
+    .select("created_at, total_price, extras_price")
     .gte("created_at", date)
     .lte("created_at", getToday({ end: true }));
 
@@ -103,33 +107,36 @@ export async function getBookingsAfterDate(date: string): Promise<any> {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return data as BookingsAfterDateType[];
 }
 
-// Returns all STAYS that are were created after the given date
-export async function getStaysAfterDate(date: string): Promise<any> {
+export async function getStaysAfterDate(
+  date: string
+): Promise<StaysAfterDateType[]> {
   const { data, error } = await supabase
     .from("bookings")
     // .select('*')
-    .select("*, guests(fullName)")
-    .gte("startDate", date)
-    .lte("startDate", getToday());
+    .select("*, guests(full_name)")
+    .gte("start_date", date)
+    .lte("start_date", getToday());
 
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return data as StaysAfterDateType[];
 }
 
 // Activity means that there is a check in or a check out today
-export async function getStaysTodayActivity(): Promise<any> {
+export async function getStaysTodayActivity(): Promise<
+  StaysTodayActivityType[]
+> {
   const { data, error } = await supabase
     .from("bookings")
-    .select("*, guests(fullName, nationality, countryFlag)")
+    .select("*, guests(full_name, nationality, country_flag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+      `and(status.eq.unconfirmed,start_date.eq.${getToday()}),and(status.eq.checked-in,end_date.eq.${getToday()})`
     )
     .order("created_at");
 
@@ -141,7 +148,7 @@ export async function getStaysTodayActivity(): Promise<any> {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-  return data;
+  return data as StaysTodayActivityType[];
 }
 
 export async function updateBooking(

@@ -26,6 +26,22 @@ export interface Settings {
 }
 
 // ===== BOOKING TYPES =====
+interface GenericBooking {
+  id: number;
+  created_at: string;
+  start_date: string | null;
+  end_date: string | null;
+  num_of_nights: number | null;
+  num_of_guests: number | null;
+  cabin_price: number | null;
+  extras_price: number | null;
+  total_price: number | null;
+  status: ("unconfirmed" | "checked-in" | "checked-out") | null;
+  has_breakfast: boolean | null;
+  has_paid: boolean | null;
+  observations: string | null;
+}
+
 export interface BookingSummary {
   id: number;
   created_at: string;
@@ -44,20 +60,7 @@ export interface BookingSummary {
   };
 }
 
-export interface BookingDetail {
-  id: number;
-  created_at: string;
-  start_date: string | null;
-  end_date: string | null;
-  num_of_nights: number | null;
-  num_of_guests: number | null;
-  cabin_price: number | null;
-  extras_price: number | null;
-  total_price: number | null;
-  status: ("unconfirmed" | "checked-in" | "checked-out") | null;
-  has_breakfast: boolean | null;
-  has_paid: boolean | null;
-  observations: string | null;
+export interface BookingDetail extends GenericBooking {
   cabins: Cabin;
   guests: Guest;
 }
@@ -76,6 +79,25 @@ export interface UpdateBookingProps {
   observations: string | null;
   cabin_id: number | null;
   guest_id: number | null;
+}
+
+export interface BookingsAfterDateType {
+  created_at: string;
+  total_price: number;
+  extras_price: number;
+}
+
+export interface StaysAfterDateType extends GenericBooking {
+  guests: {
+    full_name: string;
+  };
+}
+export interface StaysTodayActivityType extends GenericBooking {
+  guests: {
+    full_name: string;
+    nationality: string;
+    country_glaf: string;
+  };
 }
 
 // ===== CABIN TYPES =====
@@ -102,6 +124,9 @@ export type StatusFilterValues = StatusValues | "all";
 
 // Discount values
 export type DiscountFilterValues = "all" | "no-discount" | "with-discount";
+
+// Last X Days values
+export type LastFilterTypes = "7" | "30" | "90";
 
 // Booking filters
 export type BookingFilterField = "status" | "total_price";
@@ -153,7 +178,7 @@ export type BookingSorts = `${BookingSortableKeys}-${BookingSortableValues}`;
 
 // ===== UI TYPES =====
 export interface FilterOption {
-  value: DiscountFilterValues | StatusFilterValues;
+  value: DiscountFilterValues | StatusFilterValues | LastFilterTypes;
   label: string;
 }
 
@@ -162,7 +187,7 @@ export interface SortOption {
   label: string;
 }
 
-export type SearchOptions = "discount" | "status";
+export type SearchOptions = "discount" | "status" | "last";
 
 // AUTH
 export interface Credentials {
