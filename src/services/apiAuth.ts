@@ -1,5 +1,6 @@
-import type { Credentials, SignupCredentials } from "../types";
-import supabase from "./supabase";
+import { UserAttributes } from "@supabase/supabase-js";
+import type { Credentials, SignupCredentials, UpdateUserProps } from "../types";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function signup({ fullName, email, password }: SignupCredentials) {
   const { data, error } = await supabase.auth.signUp({
@@ -43,4 +44,49 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
 
   if (error) throw new Error(error.message);
+}
+
+export async function updateCurrentUser({
+  password,
+  fullName,
+  avatar
+}: UpdateUserProps) {
+  let updateData: UserAttributes = {};
+  if (password) updateData.password = password;
+  if (fullName) updateData.data = { fullName };
+
+  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) throw new Error(error.message);
+
+  if (!avatar) return data;
+
+  const { id } = data.user;
+
+  const fileName = `avatar-${id}-${Math.random()}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from("avatars")
+    .upload(fileName, avatar);
+
+  if (uploadError) throw new Error(uploadError.message);
+
+  const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
+    data: {
+      avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`
+    }
+  });
+
+  if (error2) throw new Error(error2.message);
+
+  if (data.user.user_metadata.avatar)
+    await deleteAvatar(data.user.user_metadata.avatar);
+
+  return updatedUser;
+}
+
+async function deleteAvatar(avatar: string): Promise<void> {
+  const imageName = avatar.split("/").pop();
+  if (!imageName) return;
+  await supabase.storage.from("avatars").remove([imageName]);
 }

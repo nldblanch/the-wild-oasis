@@ -175,3 +175,7 @@ export interface SignupCredentials {
   email: string;
   password: string;
 }
+
+export type UpdateUserProps =
+  | { password: string; fullName?: never; avatar?: never }
+  | { password?: never; fullName?: string; avatar?: File };
