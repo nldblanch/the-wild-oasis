@@ -50,14 +50,21 @@ const Amount = styled.div`
 interface BookingRowProps {
   booking: BookingSummary;
 }
+//     created_at,
+//     start_date,
+//     end_date,
+//     num_of_nights,
+//     num_of_guests,
+//     total_price,
+//     status,
+//     guests: { full_name: guestName, email },
+//     cabins: { name: cabinName }
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
     start_date,
     end_date,
     num_of_nights,
-    num_of_guests,
     total_price,
     status,
     guests: { full_name: guestName, email },

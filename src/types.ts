@@ -169,3 +169,9 @@ export interface Credentials {
   email: string;
   password: string;
 }
+
+export interface SignupCredentials {
+  fullName: string;
+  email: string;
+  password: string;
+}

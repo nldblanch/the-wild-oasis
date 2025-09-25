@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export type TagColor = "blue" | "green" | "silver" | (string & {});
+export type TagColor = "blue" | "green" | "silver" | string;
 
 interface TagProps {
   type: TagColor;

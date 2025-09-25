@@ -33,8 +33,8 @@ function CabinTable() {
   const sortedCabins = [...filteredCabins].sort((a, b) => {
     const sortField = field as CabinSortableKeys;
 
-    let aValue = a[sortField];
-    let bValue = b[sortField];
+    const aValue = a[sortField];
+    const bValue = b[sortField];
 
     if (typeof aValue === "string" && typeof bValue === "string") {
       const result = aValue.localeCompare(bValue);
