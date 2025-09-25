@@ -11,16 +11,17 @@ import { useUpdateUser } from "./useUpdateUser";
 
 function UpdateUserDataForm() {
   const { user } = useUser();
-
-  if (!user) return;
+  const [avatar, setAvatar] = useState<null | File>(null);
 
   const { updateUser, isUpdating } = useUpdateUser();
+  const [fullName, setFullName] = useState<string>(
+    user?.user_metadata?.fullName || ""
+  );
+  if (!user) return;
   const {
     email,
     user_metadata: { fullName: currentFullName }
   } = user;
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState<null | File>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

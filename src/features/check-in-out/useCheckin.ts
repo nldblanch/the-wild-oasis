@@ -11,7 +11,7 @@ interface CheckinProps {
         extras_price: number;
         total_price: number;
       }
-    | {};
+    | Record<string, never>;
 }
 
 export function useCheckin() {

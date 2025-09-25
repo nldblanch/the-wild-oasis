@@ -20,7 +20,7 @@ export async function signup({ fullName, email, password }: SignupCredentials) {
 }
 
 export async function login({ email, password }: Credentials) {
-  let { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
   });
@@ -51,7 +51,7 @@ export async function updateCurrentUser({
   fullName,
   avatar
 }: UpdateUserProps) {
-  let updateData: UserAttributes = {};
+  const updateData: UserAttributes = {};
   if (password) updateData.password = password;
   if (fullName) updateData.data = { fullName };
 

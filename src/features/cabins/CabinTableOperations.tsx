@@ -2,9 +2,7 @@ import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
-interface CabinTableOperationsProps {}
-
-function CabinTableOperations({}: CabinTableOperationsProps) {
+function CabinTableOperations() {
   return (
     <TableOperations>
       <Filter

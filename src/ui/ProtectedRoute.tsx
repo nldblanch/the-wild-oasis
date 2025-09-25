@@ -30,7 +30,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
         }
       }
     },
-    [isAuthenticated]
+    [isAuthenticated, isLoading, navigate]
   );
 
   if (isAuthenticated) return children;
