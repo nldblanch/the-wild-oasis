@@ -12,6 +12,7 @@ import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
 import { BookingDetail } from "../../types";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -50,10 +51,19 @@ const Header = styled.header`
     font-size: 2rem;
     margin-left: 4px;
   }
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    padding: 2rem 1.2rem;
+  }
 `;
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 3.2rem 1.2rem 1.2rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -66,6 +76,10 @@ const Guest = styled.div`
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
+  }
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `;
 
@@ -96,6 +110,9 @@ const Price = styled.div<PriceType>`
     width: 2.4rem;
     color: currentColor !important;
   }
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 1.6rem 1.2rem;
+  }
 `;
 
 const Footer = styled.footer`
@@ -103,6 +120,9 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 1.6rem 1.2rem;
+  }
 `;
 
 interface BookingDataBoxProps {

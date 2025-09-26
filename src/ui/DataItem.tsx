@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import { BREAKPOINTS } from "../utils/constants";
 
 const StyledDataItem = styled.div`
   display: flex;
   align-items: center;
   gap: 1.6rem;
   padding: 0.8rem 0;
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const Label = styled.span`

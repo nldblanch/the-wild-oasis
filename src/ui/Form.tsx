@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { BREAKPOINTS } from "../utils/constants";
 
 interface FormProps {
   type?: "modal" | "regular";
@@ -20,6 +21,9 @@ const Form = styled.form<FormProps>`
     props.type === "modal" &&
     css`
       width: 80rem;
+      @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+        width: 100%;
+      }
     `}
     
   overflow: hidden;

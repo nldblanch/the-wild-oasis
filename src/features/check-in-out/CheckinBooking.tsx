@@ -15,6 +15,7 @@ import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
 import { useSettings } from "../settings/useSettings";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const Box = styled.div`
   /* Box */
@@ -22,6 +23,9 @@ const Box = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
   padding: 2.4rem 4rem;
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 2.4rem 1.2rem;
+  }
 `;
 
 function CheckinBooking() {
