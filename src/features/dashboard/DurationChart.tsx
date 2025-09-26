@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip
 } from "recharts";
-import { useDarkMode } from "../../context/DarkModeContext";
+import { useDarkMode } from "../../hooks/useDarkMode";
 import { BREAKPOINTS } from "../../utils/constants";
 import { useChartConfig } from "./useChartConfig";
 

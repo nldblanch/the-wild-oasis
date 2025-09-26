@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis
 } from "recharts";
-import { useDarkMode } from "../../context/DarkModeContext";
+import { useDarkMode } from "../../hooks/useDarkMode";
 import { BookingsAfterDateType } from "../../types";
 import {
   eachDayOfInterval,
@@ -30,6 +30,9 @@ const StyledSalesChart = styled(DashboardBox)`
   & .recharts-cartesian-grid-horizontal line,
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
+  }
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 3.2rem 1.2rem;
   }
 `;
 

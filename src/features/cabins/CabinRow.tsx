@@ -9,6 +9,7 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const Img = styled.img`
   display: block;
@@ -17,8 +18,28 @@ const Img = styled.img`
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    display: none;
+  }
 `;
-
+const MobileImg = styled.img`
+  display: none;
+  max-width: 16rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.5) translateX(-7px);
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    display: block;
+    margin: 0 auto;
+  }
+`;
+const Wrapper = styled.div`
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 const CabinName = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -65,50 +86,56 @@ function CabinRow({ cabin }: CabinRowProps) {
   }
 
   return (
-    <Table.Row>
-      <Img src={image ?? ""} />
-      <CabinName>{name}</CabinName>
-      <div>Fits up to {max_capacity} guests</div>
-      <Price>{formatCurrency(regular_price ?? 0)}</Price>
-      {discount ? (
-        <Discount>{formatCurrency(discount ?? 0)}</Discount>
-      ) : (
-        <span>&mdash;</span>
-      )}
-      <div>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={cabinId} />
+    <Wrapper>
+      <MobileImg src={image ?? ""} />
+      <Table.Row>
+        <Img src={image ?? ""} />
+        <CabinName>{name}</CabinName>
+        <div>Fits up to {max_capacity} guests</div>
+        <Price>{formatCurrency(regular_price ?? 0)}</Price>
+        {discount ? (
+          <Discount>{formatCurrency(discount ?? 0)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
+        <div>
+          <Modal>
+            <Menus.Menu>
+              <Menus.Toggle id={cabinId} />
 
-            <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
-                Duplicate
-              </Menus.Button>
+              <Menus.List id={cabinId}>
+                <Menus.Button
+                  icon={<HiSquare2Stack />}
+                  onClick={handleDuplicate}
+                >
+                  Duplicate
+                </Menus.Button>
 
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                </Modal.Open>
 
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
-          </Menus.Menu>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
+            </Menus.Menu>
 
-          <Modal.Window name="edit">
-            <CabinForm cabinToEdit={cabin} />
-          </Modal.Window>
+            <Modal.Window name="edit">
+              <CabinForm cabinToEdit={cabin} />
+            </Modal.Window>
 
-          <Modal.Window name="delete">
-            <ConfirmDelete
-              resourceName="cabin"
-              onConfirm={() => deleteCabin(cabinId)}
-              disabled={isWorking}
-            />
-          </Modal.Window>
-        </Modal>
-      </div>
-    </Table.Row>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="cabin"
+                onConfirm={() => deleteCabin(cabinId)}
+                disabled={isWorking}
+              />
+            </Modal.Window>
+          </Modal>
+        </div>
+      </Table.Row>
+    </Wrapper>
   );
 }
 

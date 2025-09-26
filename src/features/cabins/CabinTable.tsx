@@ -11,11 +11,12 @@ import type {
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 function CabinTable() {
   const { cabins, isLoading } = useCabins();
   const [searchParams] = useSearchParams();
-
+  const screenSize = useScreenSize();
   if (isLoading || !cabins) return <Spinner />;
   if (!cabins.length) return <Empty resource={"cabins"} />;
   const filterValue = (searchParams.get("discount") ||
@@ -49,17 +50,21 @@ function CabinTable() {
     return 0;
   });
 
+  const isMobile = screenSize === "mobile";
+  const columns = isMobile ? "1fr" : "0.6fr 1.8fr 2.2fr 1fr 1fr 1fr";
   return (
     <Menus>
-      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-        <Table.Header>
-          <div></div>
-          <div>Cabin</div>
-          <div>Capacity</div>
-          <div>Price</div>
-          <div>Discount</div>
-          <div></div>
-        </Table.Header>
+      <Table columns={columns}>
+        {!isMobile && (
+          <Table.Header>
+            <div></div>
+            <div>Cabin</div>
+            <div>Capacity</div>
+            <div>Price</div>
+            <div>Discount</div>
+            <div></div>
+          </Table.Header>
+        )}
         <Table.Body
           data={sortedCabins}
           render={(cabin: Cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
