@@ -96,7 +96,7 @@ export interface StaysTodayActivityType extends GenericBooking {
   guests: {
     full_name: string;
     nationality: string;
-    country_glaf: string;
+    country_flag: string;
   };
 }
 
