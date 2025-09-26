@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -31,10 +31,8 @@ export function useBookings() {
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const {
-    data: { data: bookings, count } = { bookings: [], count: 0 },
-    isLoading,
-    error
-  } = useQuery({
+    data: { data: bookings, count }
+  } = useSuspenseQuery({
     queryKey: ["bookings", filter, sortBy, page],
     queryFn: () => getBookings({ filter, sortBy, page })
   });
@@ -55,5 +53,5 @@ export function useBookings() {
     });
   }
 
-  return { bookings, count, isLoading, error };
+  return { bookings, count };
 }

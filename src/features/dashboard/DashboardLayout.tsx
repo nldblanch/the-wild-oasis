@@ -26,38 +26,21 @@ const StyledDashboardLayout = styled.div`
 `;
 
 function DashboardLayout() {
-  const { bookings, isLoading: isLoadingBookings } = useRecentBookings();
-  const {
-    confirmedStays,
-    numDays,
-    isLoading: isLoadingStays
-  } = useRecentStays();
-  const { cabins, isLoading: isLoadingCabins } = useCabins();
-  const isLoading = isLoadingBookings || isLoadingStays || isLoadingCabins;
+  const { bookings } = useRecentBookings();
+  const { confirmedStays, numDays } = useRecentStays();
+  const { cabins } = useCabins();
 
   return (
     <StyledDashboardLayout>
-      {isLoading ? (
-        <></>
-      ) : (
-        <Stats
-          bookings={bookings}
-          confirmedStays={confirmedStays}
-          numDays={numDays}
-          cabinCount={cabins?.length ?? 0}
-        />
-      )}
+      <Stats
+        bookings={bookings}
+        confirmedStays={confirmedStays}
+        numDays={numDays}
+        cabinCount={cabins?.length ?? 0}
+      />
       <TodayActivity />
-      {isLoadingStays ? (
-        <></>
-      ) : (
-        <DurationChart confirmedStays={confirmedStays} />
-      )}
-      {isLoadingBookings ? (
-        <></>
-      ) : (
-        <SalesChart bookings={bookings} numDays={numDays} />
-      )}
+      <DurationChart confirmedStays={confirmedStays} />
+      <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );
 }

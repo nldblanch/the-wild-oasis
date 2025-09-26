@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { subDays } from "date-fns";
 import { useSearchParams } from "react-router-dom";
 import { getStaysAfterDate } from "../../services/apiBookings";
@@ -12,12 +12,11 @@ export function useRecentStays() {
   const today = new Date();
   const queryDate = subDays(today, numDays).toISOString();
 
-  const {
-    isLoading,
-    data: stays,
-    error
-  } = useQuery({
-    queryFn: () => getStaysAfterDate(queryDate),
+  const { data: stays } = useSuspenseQuery({
+    queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      return getStaysAfterDate(queryDate);
+    },
     queryKey: ["stays", `last-${numDays}`]
   });
 
@@ -34,5 +33,5 @@ export function useRecentStays() {
     }
   });
 
-  return { isLoading, stays, confirmedStays, error, numDays };
+  return { stays, confirmedStays, numDays };
 }

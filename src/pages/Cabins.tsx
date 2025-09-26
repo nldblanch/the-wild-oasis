@@ -3,6 +3,8 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import AddCabin from "../features/cabins/AddCabin";
 import CabinTableOperations from "../features/cabins/CabinTableOperations";
+import { Suspense } from "react";
+import CabinTableSkeleton from "../features/cabins/CabinsTableSkeleton";
 
 function Cabins() {
   return (
@@ -12,7 +14,9 @@ function Cabins() {
         <CabinTableOperations />
       </Row>
       <Row>
-        <CabinTable />
+        <Suspense fallback={<CabinTableSkeleton />}>
+          <CabinTable />
+        </Suspense>
         <AddCabin />
       </Row>
     </>

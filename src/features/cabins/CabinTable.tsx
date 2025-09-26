@@ -1,4 +1,3 @@
-import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Table from "../../ui/Table";
@@ -14,10 +13,9 @@ import Empty from "../../ui/Empty";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 function CabinTable() {
-  const { cabins, isLoading } = useCabins();
+  const { cabins } = useCabins();
   const [searchParams] = useSearchParams();
   const screenSize = useScreenSize();
-  if (isLoading || !cabins) return <Spinner />;
   if (!cabins.length) return <Empty resource={"cabins"} />;
   const filterValue = (searchParams.get("discount") ||
     "all") as FilterOption["value"];

@@ -3,15 +3,12 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { useBookings } from "./useBookings";
-import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 function BookingTable() {
-  const { bookings, isLoading, count } = useBookings();
+  const { bookings, count } = useBookings();
   const screenSize = useScreenSize();
-
-  if (isLoading || !bookings) return <Spinner />;
 
   if (!bookings.length) return <Empty resource={"bookings"} />;
   const isDesktop = screenSize === "desktop";
