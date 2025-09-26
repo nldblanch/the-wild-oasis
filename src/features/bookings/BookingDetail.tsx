@@ -16,11 +16,20 @@ import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+`;
+
+const StyledEmpty = styled.div`
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  gap: 2.4rem;
 `;
 
 function BookingDetail() {
@@ -29,7 +38,21 @@ function BookingDetail() {
   const moveBack = useMoveBack();
   const navigate = useNavigate();
   const { deleteBooking, isDeleting } = useDeleteBooking();
-  if (isLoading || !booking) return <Spinner />;
+  if (isLoading) return <Spinner />;
+  if (!booking)
+    return (
+      <StyledEmpty>
+        <Empty resource="booking" />
+        <ButtonGroup>
+          <Button variation="secondary" onClick={moveBack}>
+            Go Back
+          </Button>
+          <Button variation="secondary" onClick={() => navigate("/")}>
+            Go Home
+          </Button>
+        </ButtonGroup>
+      </StyledEmpty>
+    );
 
   const status = booking.status ?? "unconfirmed";
   const bookingId = booking.id;

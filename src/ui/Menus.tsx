@@ -108,6 +108,7 @@ function Toggle({ id }: ToggleProps) {
   const { openId, close, open, setPosition } = context;
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
     const rect = e.currentTarget.closest("button")?.getBoundingClientRect();
     setPosition(() => {
       if (!rect) return null;
@@ -135,7 +136,7 @@ function List({ id, children }: ListProps) {
   const context = useContext(MenusContext);
   if (!context) throw new Error("Open must be used within a Menus");
   const { openId, close, position } = context;
-  const ref = useOutsideClick<HTMLUListElement>(close, true);
+  const ref = useOutsideClick<HTMLUListElement>(() => close(), false);
   const stringId = String(id);
   if (openId !== stringId) return null;
 
