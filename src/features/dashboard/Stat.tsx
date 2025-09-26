@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const StyledStat = styled.div`
   /* Box */
@@ -12,6 +13,21 @@ const StyledStat = styled.div`
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
+
+  @media screen and (max-width: ${BREAKPOINTS.laptop}) {
+    grid-column: span 2;
+  }
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    padding: 1.2rem;
+    grid-template-columns: 4.8rem 1fr;
+    column-gap: 1.2rem;
+  }
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 1rem;
+    grid-template-columns: 4rem 1fr;
+    column-gap: 1rem;
+  }
 `;
 
 const Icon = styled.div`
@@ -30,6 +46,19 @@ const Icon = styled.div`
     height: 3.2rem;
     color: var(--color-${(props) => props.color}-700);
   }
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    & svg {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    & svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 `;
 
 const Title = styled.h5`
@@ -39,12 +68,24 @@ const Title = styled.h5`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-500);
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    font-size: 1rem;
+  }
 `;
 
 const Value = styled.p`
   font-size: 2.4rem;
   line-height: 1;
   font-weight: 500;
+
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    font-size: 2rem;
+  }
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    font-size: 1.6rem;
+  }
 `;
 
 interface StatProps {

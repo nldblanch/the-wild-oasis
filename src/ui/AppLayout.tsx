@@ -19,8 +19,11 @@ const StyledAppLayout = styled.div`
   grid-template-rows: auto 1fr;
   height: 100vh;
 
-  @media (max-width: ${BREAKPOINTS.laptop}) {
+  @media (max-width: ${BREAKPOINTS.desktop}) {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
   }
 `;
 
@@ -36,9 +39,7 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
-
       <Sidebar />
-
       <Main>
         <Container>
           <Outlet />

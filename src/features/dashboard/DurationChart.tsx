@@ -10,6 +10,7 @@ import {
   Tooltip
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const ChartBox = styled.div`
   /* Box */
@@ -18,7 +19,7 @@ const ChartBox = styled.div`
   border-radius: var(--border-radius-md);
 
   padding: 2.4rem 3.2rem;
-  grid-column: 3 / span 2;
+  grid-column: span 2;
 
   & > *:first-child {
     margin-bottom: 1.6rem;
@@ -26,6 +27,10 @@ const ChartBox = styled.div`
 
   & .recharts-pie-label-text {
     font-weight: 600;
+  }
+
+  @media screen and (max-width: ${BREAKPOINTS.largeDesktop}) {
+    grid-column: span 4;
   }
 `;
 

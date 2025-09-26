@@ -21,6 +21,7 @@ import {
 } from "date-fns";
 import { useState } from "react";
 import Button from "../../ui/Button";
+import { BREAKPOINTS } from "../../utils/constants";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -36,6 +37,10 @@ const StyledHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 `;
 
 interface SalesChartProps {
