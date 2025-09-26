@@ -23,6 +23,9 @@ const StyledToday = styled.div`
   @media screen and (max-width: ${BREAKPOINTS.largeDesktop}) {
     grid-column: span 4;
   }
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 3.2rem 1.2rem 0;
+  }
 `;
 
 const TodayList = styled.ul`
@@ -35,6 +38,41 @@ const TodayList = styled.ul`
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    /* Add vertical space between list items */
+    & > *:not(:last-child) {
+      margin-bottom: 1.2rem;
+    }
+  }
+`;
+
+const ScrollHint = styled.div`
+  text-align: center;
+  color: var(--color-grey-500);
+  font-size: 1.2rem;
+  border-top: 1px solid var(--color-grey-200);
+  padding-bottom: 1rem;
+  &::before {
+    content: "Scroll for more activities";
+  }
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    display: none;
+  }
+`;
+const MobileScrollHint = styled.div`
+  display: none;
+  text-align: center;
+  color: var(--color-grey-500);
+  font-size: 1.2rem;
+  border-top: 1px solid var(--color-grey-200);
+  padding-bottom: 1rem;
+  &::before {
+    content: "Scroll for more activities";
+  }
+  @media screen and (max-width: ${BREAKPOINTS.tablet}) {
+    display: block;
+  }
 `;
 
 const NoActivity = styled.p`
@@ -63,6 +101,8 @@ function TodayActivity() {
       ) : (
         <NoActivity>No activity today</NoActivity>
       )}
+      {activities && activities.length > 5 && <ScrollHint />}
+      <MobileScrollHint />
     </StyledToday>
   );
 }

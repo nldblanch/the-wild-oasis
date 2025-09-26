@@ -69,7 +69,9 @@ const BurgerButton = styled.button`
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useOutsideClick<HTMLBaseElement>(() => setIsOpen(false), false);
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleToggle = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
@@ -81,7 +83,7 @@ function Sidebar() {
       <Overlay $show={isOpen} />
       <StyledSidebar ref={ref} $isOpen={isOpen}>
         <Logo />
-        <MainNav />
+        <MainNav onClick={handleToggle} />
 
         {import.meta.env.DEV && <Uploader />}
       </StyledSidebar>

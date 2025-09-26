@@ -52,37 +52,39 @@ const StyledNavLink = styled(NavLink)`
     color: var(--color-brand-600);
   }
 `;
-
-function MainNav() {
+interface MainNavProps {
+  onClick: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+}
+function MainNav({ onClick }: MainNavProps) {
   return (
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/dashboard">
+          <StyledNavLink onClick={onClick} to="/dashboard">
             <HiOutlineHome />
             <span>Home</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/bookings">
+          <StyledNavLink onClick={onClick} to="/bookings">
             <HiOutlineCalendarDays />
             <span>Bookings</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/cabins">
+          <StyledNavLink onClick={onClick} to="/cabins">
             <HiOutlineHomeModern />
             <span>Cabins</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/users">
+          <StyledNavLink onClick={onClick} to="/users">
             <HiOutlineUsers />
             <span>Users</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/settings">
+          <StyledNavLink onClick={onClick} to="/settings">
             <HiOutlineCog6Tooth />
             <span>Settings</span>
           </StyledNavLink>

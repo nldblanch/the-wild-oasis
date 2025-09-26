@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
 import { BREAKPOINTS } from "../../utils/constants";
+import { useChartConfig } from "./useChartConfig";
 
 const ChartBox = styled.div`
   /* Box */
@@ -31,6 +32,10 @@ const ChartBox = styled.div`
 
   @media screen and (max-width: ${BREAKPOINTS.largeDesktop}) {
     grid-column: span 4;
+  }
+
+  @media screen and (max-width: ${BREAKPOINTS.mobile}) {
+    padding: 3.2rem 1.2rem;
   }
 `;
 
@@ -162,23 +167,21 @@ interface DurationChartProps {
 
 function DurationChart({ confirmedStays }: DurationChartProps) {
   const { isDarkMode } = useDarkMode();
+  const chartConfig = useChartConfig();
+
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays ?? []);
   if (!confirmedStays) return;
   return (
     <ChartBox>
       <Heading as="h2">Stay duration</Heading>
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
-            cx="40%"
-            cy="50%"
-            paddingAngle={3}
+            {...chartConfig.pie}
           >
             {startDataLight.map((entry) => (
               <Cell
@@ -189,13 +192,7 @@ function DurationChart({ confirmedStays }: DurationChartProps) {
             ))}
           </Pie>
           <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            layout="vertical"
-            iconSize={15}
-            iconType="circle"
-          />
+          <Legend {...chartConfig.legend} iconType="circle" />
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
